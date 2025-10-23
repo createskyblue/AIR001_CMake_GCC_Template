@@ -39,9 +39,17 @@ jobs:
       # Build your program with the given configuration
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
       
+    - name: Bump version and push tag
+      id: bump
+      uses: anothrNick/github-tag-action@v1 # Don't use @master or @v1 unless you're happy to test the latest version
+      env:
+        GITHUB_TOKEN: ${{ secrets.token }} # if you don't want to set write permissions use a PAT token
+        WITH_V: false
+
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
         files: |
           build/*.hex
           build/*.bin
+        tag_name: ${{ steps.bump.outputs.new_tag }}
