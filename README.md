@@ -7,7 +7,7 @@ This is a template project for the AIR001 chip using CMake and GCC toolchain. Th
 ## Features
 
 - UART loopback functionality
-- LED blinking (1Hz)
+- LED blinking (2Hz)
 - CMake build system with GCC toolchain
 - DMA support for UART
 
@@ -24,7 +24,7 @@ This is a template project for the AIR001 chip using CMake and GCC toolchain. Th
 
 ## Functionality
 
-1. The LED connected to PB1 will blink at 1Hz (on for 250ms, off for 250ms)
+1. The LED connected to PB1 will blink at 2Hz (on for 250ms, off for 250ms)
 2. UART loopback is implemented - any data received on USART1 RX will be echoed back on USART1 TX
 
 ## Building

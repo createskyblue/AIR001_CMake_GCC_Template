@@ -7,7 +7,7 @@
 ## 功能特性
 
 - UART 回环功能
-- LED 闪烁 (1Hz)
+- LED 闪烁 (2Hz)
 - 使用 GCC 工具链的 CMake 构建系统
 - UART 的 DMA 支持
 
@@ -24,7 +24,7 @@
 
 ## 功能说明
 
-1. 连接到 PB1 的 LED 将以 1Hz 频率闪烁（亮 250ms，灭 250ms）
+1. 连接到 PB1 的 LED 将以 2Hz 频率闪烁（亮 250ms，灭 250ms）
 2. 实现了 UART 回环 - 在 USART1 RX 上接收到的任何数据都将通过 USART1 TX 回传
 
 ## 构建说明
