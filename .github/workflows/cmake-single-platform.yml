@@ -26,7 +26,7 @@ jobs:
       run: wget -O - https://developer.arm.com/-/media/Files/downloads/gnu/14.3.rel1/binrel/arm-gnu-toolchain-14.3.rel1-x86_64-arm-none-eabi.tar.xz | tar -xJ -C /opt
 
     - name: 安装依赖
-      run: sudo apt install cmake ninjia-build
+      run: sudo apt install cmake ninja-build
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
