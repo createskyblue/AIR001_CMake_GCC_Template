@@ -34,31 +34,10 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* Private defines -----------------------------------------------------------*/
-#define DALI_RX_Pin GPIO_PIN_0
-#define DALI_RX_GPIO_Port GPIOA
-#define DALI_RX_EXTI_IRQn EXTI0_1_IRQn
-#define DALI_TX_Pin GPIO_PIN_1
-#define DALI_TX_GPIO_Port GPIOA
 #define LED_Pin GPIO_PIN_1
 #define LED_GPIO_Port GPIOB
 #define RX_IRQ_Pin GPIO_PIN_2
 #define RX_IRQ_GPIO_Port GPIOA
-
-typedef enum
-{
-  MODBUS_HOLDING_REG_IS_MILLIS_0 = 0,
-  MODBUS_HOLDING_REG_IS_MILLIS_1,
-  MODBUS_HOLDING_REG_IS_CONTROLER,
-  MODBUS_HOLDING_REG_TX_MSG_BOX_0,
-  MODBUS_HOLDING_REG_TX_MSG_BOX_1,
-  MODBUS_HOLDING_REG_TX_EN,
-  MODBUS_HOLDING_REG_RX_LEN,
-  MODBUS_HOLDING_REG_RX_MSG_BOX_0,
-  MODBUS_HOLDING_REG_RX_MSG_BOX_1,
-  MODBUS_HOLDING_REG_DEMO_PHONE_0,
-  MODBUS_HOLDING_REG_DEMO_PHONE_1,
-  MODBUS_HOLDING_REG_DEMO_PHONE_2,
-};
 
 /* Exported variables prototypes ---------------------------------------------*/
 /* Exported functions prototypes ---------------------------------------------*/

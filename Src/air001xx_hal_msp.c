@@ -30,8 +30,6 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-static DMA_HandleTypeDef HdmaCh1;
-static DMA_HandleTypeDef HdmaCh2;
 
 /* Private function prototypes -----------------------------------------------*/
 /* External functions --------------------------------------------------------*/
