@@ -40,8 +40,8 @@ jobs:
       run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
       
     - name: Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: |
-            ./build/*hex
-            ./build/*bin
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          build/*.hex
+          build/*.bin
