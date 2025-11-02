@@ -99,6 +99,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     }
 
     __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart1_rx);
+    HAL_DMA_ChannelMap(&hdma_usart1_rx, DMA_CHANNEL_MAP_USART1_RX);
 
     /* USART1_TX Init */
     hdma_usart1_tx.Instance = DMA1_Channel2;
@@ -115,8 +116,7 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     }
 
     __HAL_LINKDMA(uartHandle,hdmatx,hdma_usart1_tx);
-
-    HAL_SYSCFG_DMA_Req(0B010100100110);
+    HAL_DMA_ChannelMap(&hdma_usart1_tx, DMA_CHANNEL_MAP_USART1_TX);
 
     /* USART1 interrupt Init */
     HAL_NVIC_SetPriority(USART1_IRQn, 0, 3);
