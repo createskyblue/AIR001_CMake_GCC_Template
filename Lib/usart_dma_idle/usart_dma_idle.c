@@ -8,7 +8,7 @@ void USART_Rx_DMA_Init(USART_DMA_Context* ctx, UART_HandleTypeDef* huart, DMA_Ha
     ctx->last_count = 0;
     
     // Create message queue
-    createQueue(&ctx->queue, USART_DMA_BUFFER_SIZE+1, ctx->queue_buffer);
+    createQueue(&ctx->queue, USART_FIFO_BUFFER_SIZE, ctx->queue_buffer);
     
     // Configure USART idle interrupt
     __HAL_UART_CLEAR_IDLEFLAG(ctx->huart);

@@ -4,7 +4,8 @@
 #include "air001xx_hal.h"
 #include "Queue.h"
 
-#define USART_DMA_BUFFER_SIZE  (256)
+#define USART_DMA_BUFFER_SIZE  (32)
+#define USART_FIFO_BUFFER_SIZE  (256)
 
 // USART DMA context structure
 typedef struct {
@@ -12,7 +13,7 @@ typedef struct {
     DMA_HandleTypeDef* hdma;
     QUEUE queue;
     uint8_t dma_buffer[USART_DMA_BUFFER_SIZE];
-    uint8_t queue_buffer[USART_DMA_BUFFER_SIZE+1];
+    uint8_t queue_buffer[USART_FIFO_BUFFER_SIZE];
     uint32_t last_count;
 } USART_DMA_Context;
 
