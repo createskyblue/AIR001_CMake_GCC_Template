@@ -5,7 +5,7 @@
 #include "gpio.h"
 
 extern DMA_HandleTypeDef hdma_usart1_rx;
-USART_Rx_DMA_Context USART1_DMA_Context;
+USART_DMA_Context USART1_DMA_Context;
 int __io_putchar(int ch)
 {
   HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
