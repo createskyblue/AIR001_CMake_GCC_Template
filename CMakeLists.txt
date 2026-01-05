@@ -55,6 +55,7 @@ file(GLOB USER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/AIR001xx_HAL_Driver/Src/Legacy/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Lib/Queue/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Lib/usart_dma_idle/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Lib/coremark/*.c
 )
 
 # Add sources to executable
@@ -75,7 +76,7 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Lib/Queue
     ${CMAKE_CURRENT_SOURCE_DIR}/Lib/usart_dma_idle
-
+    ${CMAKE_CURRENT_SOURCE_DIR}/Lib/coremark
 )
 
 # Add project symbols (macros)

@@ -85,8 +85,8 @@ void SysTick_Handler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-  extern USART_DMA_Context USART1_DMA_Context;
-  USART_Rx_DMA_IRQHandler_Process(&USART1_DMA_Context);
+  // extern USART_DMA_Context USART1_DMA_Context;
+  // USART_Rx_DMA_IRQHandler_Process(&USART1_DMA_Context);
   /* USER CODE END USART1_IRQn 0 */
   HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
@@ -96,8 +96,8 @@ void USART1_IRQHandler(void)
 
 void DMA1_Channel1_IRQHandler(void)
 {
-  extern USART_DMA_Context USART1_DMA_Context;
-  USART_Rx_DMA_IRQHandler_Process(&USART1_DMA_Context);
+  // extern USART_DMA_Context USART1_DMA_Context;
+  // USART_Rx_DMA_IRQHandler_Process(&USART1_DMA_Context);
   HAL_DMA_IRQHandler(&hdma_usart1_rx);
 }
 void DMA1_Channel2_3_IRQHandler(void)

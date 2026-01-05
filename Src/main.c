@@ -58,31 +58,31 @@ void SystemClock_Config(void)
 }
 
 
-int main(void)
+int user_main_init(void)
 {
     HAL_Init();
     SystemClock_Config();
 
     MX_GPIO_Init();
-    MX_DMA_Init();
+    // MX_DMA_Init();
     MX_USART1_UART_Init();
-    USART_Rx_DMA_Init(&USART1_DMA_Context, &huart1, &hdma_usart1_rx);
+    // USART_Rx_DMA_Init(&USART1_DMA_Context, &huart1, &hdma_usart1_rx);
     
-    while (1)
-    {
-        // LED闪烁(1Hz)
-        static uint32_t led_timer = 0;
-        if (HAL_GetTick() - led_timer >= 250) {
-            led_timer = HAL_GetTick();
-            HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);
-        }
-        // USART1 loopback - echo received data back
-        uint8_t rx_data;
-        if (USART_read(&USART1_DMA_Context, &rx_data)) {
-            // Echo the received data back through USART1
-            USART_write(&USART1_DMA_Context, &rx_data, 1);
-        }
-    }
+    // while (1)
+    // {
+    //     // LED闪烁(1Hz)
+    //     static uint32_t led_timer = 0;
+    //     if (HAL_GetTick() - led_timer >= 250) {
+    //         led_timer = HAL_GetTick();
+    //         HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);
+    //     }
+    //     // USART1 loopback - echo received data back
+    //     uint8_t rx_data;
+    //     if (USART_read(&USART1_DMA_Context, &rx_data)) {
+    //         // Echo the received data back through USART1
+    //         USART_write(&USART1_DMA_Context, &rx_data, 1);
+    //     }
+    // }
 }
 
 void Error_Handler(void)
