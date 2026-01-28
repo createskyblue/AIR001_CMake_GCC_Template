@@ -119,8 +119,6 @@ int main(void)
 
     // 注册用户自定义队列指针和操作函数
     USART_RegisterQueueOps(&USART1_DMA_Context, &usart1_rx_fifo, USART_Queue_Write, USART_Queue_Available);
-
-    printf("USART DMA IDLE Reception initialized\r\n");
     
     while (1)
     {

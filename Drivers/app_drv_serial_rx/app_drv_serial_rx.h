@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include "main.h"
 
-#define USART_DMA_BUFFER_SIZE  (256)
+#define USART_DMA_BUFFER_SIZE  (32)
 
 // 用户自定义队列操作函数类型定义（批量操作）
 typedef uint32_t (*USART_Queue_Write_Func)(void* user_queue, uint8_t* data, uint16_t length);  // 批量写入队列，返回实际写入长度
