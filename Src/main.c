@@ -1,14 +1,25 @@
 #include "main.h"
 #include "dma.h"
 #include "usart.h"
-#include "usart_dma_idle.h"
 #include "gpio.h"
+#include "app_drv_serial_rx.h"
+#include "app_drv_fifo.h"
 
 extern DMA_HandleTypeDef hdma_usart1_rx;
 USART_DMA_Context USART1_DMA_Context;
+
+// DMA发送状态标志
+volatile uint8_t usart1_tx_busy = 0;
 int __io_putchar(int ch)
 {
+  // 等待上一次DMA发送完成
+  while (usart1_tx_busy != 0) {
+    __NOP();
+  }
+  
+  usart1_tx_busy = 1;
   HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, HAL_MAX_DELAY);
+  usart1_tx_busy = 0;
   return ch;
 }
 
@@ -20,6 +31,39 @@ int _write(int file, char *ptr, int len)
     __io_putchar(*ptr++);
   }
   return len;
+}
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart->Instance == USART1) {
+    usart1_tx_busy = 0;
+  }
+}
+
+// 定义 FIFO 缓冲区大小
+#define RX_FIFO_SIZE 256
+
+// 用户自定义的 USART1 和 USART2 的 FIFO 缓冲区
+static uint8_t usart1_rx_fifo_buffer[RX_FIFO_SIZE];
+
+// FIFO 实例
+static app_drv_fifo_t usart1_rx_fifo;
+
+// 通用的批量队列写入函数（所有串口共用）
+uint32_t USART_Queue_Write(void* user_queue, uint8_t* data, uint16_t length)
+{
+    uint16_t written = length;
+    app_drv_fifo_result_t result = app_drv_fifo_write((app_drv_fifo_t*)user_queue, data, &written);
+    if (result == APP_DRV_FIFO_RESULT_SUCCESS) {
+        return written;
+    }
+    return 0;
+}
+
+// 通用的队列可用空间查询函数（所有串口共用）
+uint32_t USART_Queue_Available(void* user_queue)
+{
+    return (uint32_t)(RX_FIFO_SIZE - app_drv_fifo_length((app_drv_fifo_t*)user_queue));
 }
 
 void SystemClock_Config(void)
@@ -66,7 +110,19 @@ int main(void)
     MX_GPIO_Init();
     MX_DMA_Init();
     MX_USART1_UART_Init();
+
+    // 初始化用户自定义的 FIFO 队列
+    app_drv_fifo_init(&usart1_rx_fifo, usart1_rx_fifo_buffer, RX_FIFO_SIZE);
+    
+    // 初始化 USART DMA IDLE 接收
     USART_Rx_DMA_Init(&USART1_DMA_Context, &huart1, &hdma_usart1_rx);
+
+    // 设置用户队列指针
+    USART1_DMA_Context.user_queue = &usart1_rx_fifo;
+    // 注册用户自定义队列操作函数（所有串口共用同一套函数）
+    USART_RegisterQueueOps(&USART1_DMA_Context, USART_Queue_Write, USART_Queue_Available);
+
+    printf("USART DMA IDLE Reception initialized\r\n");
     
     while (1)
     {
@@ -76,11 +132,18 @@ int main(void)
             led_timer = HAL_GetTick();
             HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_1);
         }
-        // USART1 loopback - echo received data back
-        uint8_t rx_data;
-        if (USART_read(&USART1_DMA_Context, &rx_data)) {
-            // Echo the received data back through USART1
-            USART_write(&USART1_DMA_Context, &rx_data, 1);
+        // 检查 USART1 FIFO 中是否有数据
+        uint16_t usart1_len = app_drv_fifo_length(&usart1_rx_fifo);
+        if (usart1_len > 0 && usart1_tx_busy == 0) {
+            static uint8_t temp_buf[128];
+            uint16_t read_len = (usart1_len > sizeof(temp_buf)) ? sizeof(temp_buf) : usart1_len;
+            uint16_t actual_read = read_len;
+            app_drv_fifo_result_t result = app_drv_fifo_read(&usart1_rx_fifo, temp_buf, &actual_read);
+            if (result == APP_DRV_FIFO_RESULT_SUCCESS && actual_read > 0) {
+                // 将接收到的数据回显到 USART1
+                usart1_tx_busy = 1;
+                HAL_UART_Transmit_DMA(&huart1, temp_buf, actual_read);
+            }
         }
     }
 }

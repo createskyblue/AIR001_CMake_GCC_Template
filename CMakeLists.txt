@@ -53,8 +53,8 @@ file(GLOB USER_SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Src/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/AIR001xx_HAL_Driver/Src/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/AIR001xx_HAL_Driver/Src/Legacy/*.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Lib/Queue/*.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/Lib/usart_dma_idle/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/app_drv_fifo/app_drv_fifo.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/app_drv_serial_rx/app_drv_serial_rx.c
 )
 
 # Add sources to executable
@@ -73,8 +73,8 @@ target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/AIR001xx_HAL_Driver/Inc/Legacy
     ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/AIR001xx_HAL_Driver/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/Inc
-    ${CMAKE_CURRENT_SOURCE_DIR}/Lib/Queue
-    ${CMAKE_CURRENT_SOURCE_DIR}/Lib/usart_dma_idle
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/app_drv_fifo
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drivers/app_drv_serial_rx
 
 )
 
