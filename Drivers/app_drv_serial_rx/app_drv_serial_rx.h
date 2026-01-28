@@ -27,9 +27,10 @@ typedef struct {
 void USART_Rx_DMA_Init(USART_DMA_Context* ctx, UART_HandleTypeDef* huart, DMA_HandleTypeDef* hdma);
 void USART_Rx_DMA_IRQHandler_Process(USART_DMA_Context* ctx);
 
-// 设置用户自定义队列操作函数
-void USART_RegisterQueueOps(USART_DMA_Context* ctx, 
-                           USART_Queue_Write_Func write_func, 
+// 设置用户自定义队列操作函数和队列指针
+void USART_RegisterQueueOps(USART_DMA_Context* ctx,
+                           void* user_queue,
+                           USART_Queue_Write_Func write_func,
                            USART_Queue_Available_Func available_func);
 
 #endif /* USART_DMA_IDLE_H_ */
