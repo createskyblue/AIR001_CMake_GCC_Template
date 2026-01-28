@@ -131,7 +131,7 @@ int main(void)
         // 检查 USART1 FIFO 中是否有数据
         uint16_t usart1_len = app_drv_fifo_length(&usart1_rx_fifo);
         if (usart1_len > 0 && usart1_tx_busy == 0) {
-            static uint8_t temp_buf[128];
+            static uint8_t temp_buf[16];
             uint16_t read_len = (usart1_len > sizeof(temp_buf)) ? sizeof(temp_buf) : usart1_len;
             uint16_t actual_read = read_len;
             app_drv_fifo_result_t result = app_drv_fifo_read(&usart1_rx_fifo, temp_buf, &actual_read);
